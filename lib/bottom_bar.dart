@@ -1,7 +1,9 @@
-// ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable
+// ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable, import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
 import 'package:music_player/play_pause.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class bottom_bar extends StatefulWidget {
 
@@ -9,6 +11,9 @@ class bottom_bar extends StatefulWidget {
   State<bottom_bar> createState() => _bottom_barState();
 }
 class _bottom_barState extends State<bottom_bar> {
+
+  final _audioQuery = OnAudioQuery();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,15 +46,15 @@ class _bottom_barState extends State<bottom_bar> {
                         data: SliderThemeData(
                             trackHeight: 1,
                             thumbColor: Color(0xffEE2D2D),
-                            thumbShape:
-                                RoundSliderThumbShape(enabledThumbRadius: 6),
+                            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6),
                             activeTrackColor: Color(0xffEE2D2D),
                             inactiveTrackColor: Colors.black87),
                         child: Slider.adaptive(
-                          value: 35,
-                          onChanged: (value) {},
-                          min: 0,
-                          max: 100,
+                          value:0,
+                          onChanged: (value) {
+
+                          },
+                          max:0
                         )),
                   ),
                   Padding(

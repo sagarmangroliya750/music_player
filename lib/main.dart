@@ -7,6 +7,7 @@ import 'package:music_player/MusicPlayerList.dart';
 import 'package:music_player/Playlists_pg.dart';
 import 'package:music_player/bottom_bar.dart';
 import 'package:music_player/play_pause.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MaterialApp(home: demo(), debugShowCheckedModeBanner: false));
@@ -20,6 +21,17 @@ class demo extends StatefulWidget {
 }
 
 class _demoState extends State<demo> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requestPermission();
+  }
+  void requestPermission()
+  {
+    Permission.storage.request();
+  }
 
 
   @override
