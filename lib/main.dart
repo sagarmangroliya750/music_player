@@ -6,6 +6,7 @@ import 'package:music_player/Artists_pg.dart';
 import 'package:music_player/MusicPlayerList.dart';
 import 'package:music_player/Playlists_pg.dart';
 import 'package:music_player/bottom_bar.dart';
+import 'package:music_player/play_pause.dart';
 
 void main() {
   runApp(MaterialApp(home: demo(), debugShowCheckedModeBanner: false));
@@ -20,7 +21,6 @@ class demo extends StatefulWidget {
 
 class _demoState extends State<demo> {
 
-  static bool isPlaying = true;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,11 @@ class _demoState extends State<demo> {
             // Bottom Bar/////
             InkWell(
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) {
-                  return bottom_bar(isPlaying);
-                },));
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return bottom_bar();
+                  },
+                ));
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 10),
@@ -77,14 +79,19 @@ class _demoState extends State<demo> {
                                   border: Border.all(color: Colors.white)),
                               child: IconButton(
                                   onPressed: () {
-                                 setState(() {
-                                  if(isPlaying) {isPlaying = false;}
-                                  else {isPlaying = true;}
-                                 });
+                                    setState(() {
+                                      if (aud_butt.isPlaying) {
+                                        aud_butt.isPlaying = false;
+                                      } else {
+                                        aud_butt.isPlaying = true;
+                                      }
+                                    });
                                   },
-                                  icon: isPlaying
-                                      ? Icon(Icons.play_arrow_sharp, size: 22, color: Colors.red)
-                                      : Icon(Icons.pause, size: 22, color: Colors.red)),
+                                  icon:  aud_butt.isPlaying
+                                      ? Icon(Icons.play_arrow_sharp,
+                                          size: 22, color: Colors.red)
+                                      : Icon(Icons.pause,
+                                          size: 22, color: Colors.red)),
                             ),
                             IconButton(
                                 onPressed: () {},

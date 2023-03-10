@@ -1,25 +1,17 @@
 // ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:music_player/play_pause.dart';
 
 class bottom_bar extends StatefulWidget {
-
-  bool isPlaying;
-  bottom_bar(this.isPlaying);
 
   @override
   State<bottom_bar> createState() => _bottom_barState();
 }
-
 class _bottom_barState extends State<bottom_bar> {
   @override
   Widget build(BuildContext context) {
-
-    bool isPlaying = widget.isPlaying;
-
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-      extendBody: true,
       appBar:AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xff3D3C3C),
@@ -103,15 +95,18 @@ class _bottom_barState extends State<bottom_bar> {
                         child: FloatingActionButton(
                             backgroundColor: Color(0xffEE2D2D),
                             onPressed: () {
-                              setState(() {
-                                if (isPlaying) {
-                                  isPlaying = false;
-                                } else {
-                                  isPlaying = true;
+                              if(aud_butt.isPlaying)
+                                {
+                                  aud_butt.isPlaying = false;
                                 }
+                              else
+                                {
+                                  aud_butt.isPlaying = true;
+                                }
+                              setState(() {
                               });
                             },
-                            child: isPlaying
+                            child:  aud_butt.isPlaying
                                 ? Icon(Icons.play_arrow, size: 40,)
                                 : Icon(Icons.pause, size: 40,))),
                     IconButton(
@@ -136,9 +131,33 @@ class _bottom_barState extends State<bottom_bar> {
                         icon: Icon(Icons.arrow_back,
                             color: Colors.white, size: 22)),
                     IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.favorite_border,
-                            color: Colors.white, size: 22)),
+                        onPressed: () {
+                          if(aud_butt.isLike)
+                            {
+                              aud_butt.isLike = false;
+                             final snackbar =  SnackBar(content: Text("Add to Favourite.."),
+                               padding:EdgeInsets.only(bottom:20,left:20,right:10),
+                               action:SnackBarAction(label: "Close", onPressed: () {
+                                SnackBarClosedReason.dismiss;
+                              },),);
+                              ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                            }
+                          else
+                            {
+                              aud_butt.isLike = true;
+                              final snackbar = SnackBar(content: Text("Remove from Favourite.."),
+                                padding:EdgeInsets.only(bottom:20,left:20,right:10),
+                                action:SnackBarAction(label: "Close", onPressed: () {
+                                  SnackBarClosedReason.dismiss;
+                              },),);
+                              ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                            }
+                          setState(() {
+                          });
+                        },
+                        icon:  aud_butt.isLike
+                            ? Icon(Icons.favorite_border,color:Colors.white,)
+                            : Icon(Icons.favorite,color:Colors.red,)),
                     IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.shuffle_outlined,
